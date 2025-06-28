@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Сборка ПК в Горловке</title>
+    <title>Отзывы</title>
     <style>
         :root {
             --dark: #0a0a0a;
@@ -28,241 +28,220 @@
             min-height: 100vh;
             line-height: 1.6;
             overflow-x: hidden;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
         }
 
-        .main-content {
-            width: 100%;
-            padding: 20px;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeIn 1.8s ease-out forwards;
-            animation-delay: 0.3s;
-        }
-
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .container {
-            background: var(--dark-gray);
-            border-radius: 12px;
-            padding: clamp(20px, 5vw, 40px);
+        .reviews-section {
             width: 100%;
             max-width: 900px;
-            margin: 0 auto;
+            margin: 30px auto;
+            padding: 20px;
+            background: var(--dark-gray);
+            border-radius: 12px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
-            text-align: center;
             border: 1px solid var(--light-gray);
         }
-        
-        h1 {
-            font-size: clamp(1.8rem, 5vw, 2.5rem);
-            margin-bottom: clamp(20px, 5vw, 30px);
+
+        .reviews-section h2 {
+            text-align: center;
             color: var(--text-light);
-            text-align: center;
-            font-weight: 600;
-            opacity: 0;
-            animation: textAppear 1.2s ease-out forwards;
-            animation-delay: 0.6s;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
         }
 
-        @keyframes textAppear {
-            from {
-                opacity: 0;
-                transform: translateY(15px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .pc-assembly-info {
-            background: var(--medium-gray);
-            border-radius: 10px;
-            padding: clamp(20px, 4vw, 30px);
-            margin: clamp(20px, 4vw, 30px) 0;
-            border: 1px solid var(--light-gray);
-            text-align: center;
-            box-shadow: inset 0 0 15px rgba(0,0,0,0.3);
-            opacity: 0;
-            animation: textAppear 1.2s ease-out forwards;
-            animation-delay: 0.9s;
-        }
-
-        .pc-assembly-info p {
-            font-size: clamp(1rem, 3vw, 1.2rem);
-            margin-bottom: 15px;
-            line-height: 1.6;
-            color: var(--text);
-        }
-
-        .contact-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-top: clamp(20px, 4vw, 30px);
-            opacity: 0;
-            animation: textAppear 1.2s ease-out forwards;
-            animation-delay: 1.2s;
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
         }
 
         @media (min-width: 768px) {
-            .contact-buttons {
-                flex-direction: row;
-                justify-content: center;
-                flex-wrap: wrap;
+            .reviews-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
-        .contact-btn {
-            display: inline-flex;
+        .review {
+            background: var(--medium-gray);
+            border-radius: 10px;
+            padding: 20px;
+            border: 1px solid var(--light-gray);
+        }
+
+        .review-header {
+            display: flex;
             align-items: center;
-            justify-content: center;
-            padding: clamp(12px, 3vw, 15px) clamp(20px, 4vw, 30px);
-            border-radius: 50px;
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-            position: relative;
-            overflow: hidden;
-            font-size: clamp(0.9rem, 3vw, 1rem);
-            min-width: 200px;
-            margin: 0 auto;
+            margin-bottom: 10px;
+            gap: 15px;
         }
 
-        .contact-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-            transition: 0.6s;
+        .review-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            cursor: pointer;
+            transition: transform 0.3s;
+            order: 2;
         }
 
-        .contact-btn:hover::before {
-            left: 100%;
+        .review-avatar:hover {
+            transform: scale(1.05);
         }
 
-        .contact-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+        .review-author {
+            font-weight: 600;
+            color: var(--text-light);
+            order: 1;
         }
 
-        .contact-btn:active {
-            transform: translateY(1px);
+        .review-rating {
+            color: gold;
+            margin: 5px 0;
         }
 
-        .contact-btn i {
-            margin-right: 10px;
-            font-size: clamp(1rem, 3vw, 1.2rem);
+        .review-text {
+            font-size: 0.95rem;
+            line-height: 1.5;
         }
 
-        .phone-btn {
-            background: linear-gradient(135deg, #2E7D32, #1B5E20);
-        }
-
-        .telegram-contact-btn {
-            background: linear-gradient(135deg, #006699, #004d73);
-        }
-
-        .review-btn {
-            background: linear-gradient(135deg, #6c5ce7, #4b3cb8);
-        }
-
-        body::before {
-            content: '';
+        .modal {
+            display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: 
-                radial-gradient(circle at 20% 30%, rgba(108, 92, 231, 0.1) 0%, transparent 30%),
-                radial-gradient(circle at 80% 70%, rgba(30, 126, 50, 0.1) 0%, transparent 30%);
-            z-index: -1;
-            animation: bgMove 30s infinite alternate;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
         }
 
-        @keyframes bgMove {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(5%, 5%); }
+        .modal-content {
+            max-width: 80%;
+            max-height: 80vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        @media (max-width: 480px) {
-            .container {
-                padding: 20px 15px;
-                border-radius: 8px;
-            }
-            
-            .pc-assembly-info {
-                padding: 15px;
-                border-radius: 8px;
-            }
-            
-            .contact-btn {
-                width: 100%;
-                max-width: 280px;
-            }
+        .modal-content img {
+            max-width: 100%;
+            max-height: 80vh;
+            width: auto;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+            object-fit: contain;
         }
 
-        @media (prefers-reduced-motion: reduce) {
-            * {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-                scroll-behavior: auto !important;
-            }
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close-modal:hover {
+            color: var(--accent);
         }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <!-- Основной контент -->
-    <div class="main-content">
-        <div class="container">
-            <h1>Сборка ПК в Горловке</h1>
-            
-            <div class="pc-assembly-info">
-                <p>Собираю ПК с гарантией качества. Оплата наличкой.</p>
-                <p>Стоимость комплектующих + сборка (за сборку 3500 рублей)</p>
+    <!-- Модальное окно для фото -->
+    <div class="modal" id="imageModal">
+        <span class="close-modal">&times;</span>
+        <div class="modal-content">
+            <img id="expandedImage" src="" alt="Увеличенное фото">
+        </div>
+    </div>
+
+    <!-- Секция отзывов -->
+    <div class="reviews-section">
+        <h2>Отзывы</h2>
+        <div class="reviews-grid">
+            <div class="review">
+                <div class="review-header">
+                    <div class="review-author">Рофл Челик</div>
+                </div>
+                <div class="review-rating">★★★★★</div>
+                <div class="review-text">Пк Норм Я В Ах Что Школьники Бл Делают Пк</div>
             </div>
             
-            <div class="contact-buttons">
-                <a href="tel:+79497052746" class="contact-btn phone-btn">
-                    <i class="fas fa-phone-alt"></i> +7 (949) 705-27-46
-                </a>
-                <a href="https://t.me/+380714346514" target="_blank" class="contact-btn telegram-contact-btn">
-                    <i class="fab fa-telegram"></i> Telegram
-                </a>
+            <div class="review">
+                <div class="review-header">
+                    <div class="review-author">Кит 228</div>
+                    <img src="https://github.com/YUUGTRELDYS/-/blob/main/IMG/photo_2025-06-27_11-28-08.jpg?raw=true" alt="Кит 228" class="review-avatar">
+                </div>
+                <div class="review-rating">★★★★☆</div>
+                <div class="review-text">Пк прикольный я не мог написать отзыв тех работы. Советую, школьник молодец в свои годы!</div>
+            </div>
+            
+            <div class="review">
+                <div class="review-header">
+                    <div class="review-author">Сергей</div>
+                    <img src="https://github.com/YUUGTRELDYS/-/blob/main/IMG/photo_2025-06-27_13-07-15.jpg?raw=true" alt="Сергей" class="review-avatar">
+                </div>
+                <div class="review-rating">★★★★★</div>
+                <div class="review-text">ИМБА ЗА СВОИ ДЕНЬГИ</div>
+            </div>
+            
+            <div class="review">
+                <div class="review-header">
+                    <div class="review-author">Дима Хохольков</div>
+                </div>
+                <div class="review-rating">★★★★★</div>
+                <div class="review-text">Отлично</div>
+            </div>
+
+            <div class="review">
+                <div class="review-header">
+                    <div class="review-author">Лизунчик158</div>
+                </div>
+                <div class="review-rating">★★★★☆</div>
+                <div class="review-text">почему для девочек не дешевле ну ладно</div>
             </div>
         </div>
     </div>
 
     <script>
-        // Отключение правой кнопки мыши
+        // Модальное окно для фото
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('expandedImage');
+        const closeModal = document.querySelector('.close-modal');
+        const avatars = document.querySelectorAll('.review-avatar');
+
+        // Обработчик клика по аватарке
+        avatars.forEach(avatar => {
+            avatar.addEventListener('click', () => {
+                modal.style.display = 'flex';
+                modalImg.src = avatar.src;
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        // Закрытие модального окна
+        closeModal.addEventListener('click', () => {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        });
+
+        // Закрытие при клике вне изображения
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Отключение контекстного меню
         document.addEventListener('contextmenu', function(e) {
             e.preventDefault();
         });
-
-        // Оптимизация: загрузка шрифтов без блокировки рендеринга
-        if ('fonts' in document) {
-            document.fonts.load('1rem "Montserrat"').then(() => {
-                document.body.style.visibility = 'visible';
-            });
-        }
     </script>
 </body>
 </html>
